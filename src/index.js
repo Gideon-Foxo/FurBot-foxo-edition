@@ -10,7 +10,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 
 // Files!
-const sharding = require('./sharding.js');
+//const sharding = require('./sharding.js');
 const fox = require('./fox.js');
 const settings = require('./config/settings.js');
 const token = require('./config/tokens.json');
