@@ -2,14 +2,20 @@ const settings = {
 
     // Slash mode?
     slash: true,
+
     // This is to set guild commands instead of global commands. This is a STRING for one guild ID and should only be used for development
     //guildID: "833171604812070933",
+
+    // Replace this with your Discord userID if you are the owner of the bot
+    ownerID: "524371727812263948",
 
     // The prefix of the bot (if not in slash mode)
     prefix: "f.",
 
     // links
     github: "https://github.com/Gideon-Foxo/FurBot-foxo-edition",
+    donate: "https://ko-fi.com/gideonfoxo",
+    supportServer: "https://discord.gg/kCDfMRWdmf",
 
 
 
