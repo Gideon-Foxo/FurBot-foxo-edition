@@ -29,8 +29,8 @@ async function messages(msg, client) {
     const clientPerms = msg.channel.permissionsFor(bot)
 
     // If there are not perms (return if cant send messages and return error if doesnt have embed links unless command has said otherwise)
-    if (!clientPerms.has("SEND_MESSAGES")) return;
-    if (!command.embed && !clientPerms.has("EMBED_LINKS")) return await msg.channel.send(`${settings.redTick} I need \`embed links\` permission to run this command!`)
+    if (!clientPerms.has("SendMessages")) return;
+    if (!command.embed && !clientPerms.has("EmbedLinks")) return await msg.channel.send(`${settings.redTick} I need \`embed links\` permission to run this command!`)
 
 
     // If command is an action command (this is to gather the receivers)
