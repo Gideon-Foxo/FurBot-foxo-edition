@@ -19,7 +19,7 @@ const package = require('../package.json');
 
 // If slash commands is off add the message intent to see messages
 const array = [Discord.GatewayIntentBits.Guilds]
-if (!settings.slash) array.push(Discord.GatewayIntentBits.MessageContent)
+if (!settings.slash) array.push(Discord.GatewayIntentBits.MessageContent, Discord.GatewayIntentBits.GuildMessages)
 
 // Defines the client or bot instance
 const client = new Discord.Client({
