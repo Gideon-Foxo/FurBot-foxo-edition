@@ -78,7 +78,7 @@ async function messages(msg, client) {
 	} catch (err) {
 		log.error("Error in command handler (fox.js function messages at command execute)", err)
 		
-        const embed = new Discord.MessageEmbed()
+        const embed = new Discord.EmbedBuilder()
         .setColor(Settings.red)
         .setDescription(`${settings.redTick} Something went wrong, Error: ${err.msg}`)
         return await msg.channel.send({embeds: [embed]})

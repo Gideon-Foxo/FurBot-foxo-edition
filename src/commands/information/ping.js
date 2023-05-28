@@ -11,7 +11,7 @@ module.exports = {
 		let message = null;
 
 		// The first embed that is sent
-		const firstEmbed = new Discord.MessageEmbed()
+		const firstEmbed = new Discord.EmbedBuilder()
 		.setColor(config.blue)
 		.setDescription("Ping?")
 
@@ -20,9 +20,9 @@ module.exports = {
 		if (stuff.slash) message = await fox.reply({ embeds: [firstEmbed], fetchReply: true })
 
 		// Defines the embed that the message is edited to
-		const finishEmbed = new Discord.MessageEmbed()
+		const finishEmbed = new Discord.EmbedBuilder()
 		.setColor(config.blue)
-		.setDescription(`ℹ Pong! Latency: **${message.createdTimestamp - fox.createdTimestamp}ms** Gateway: **${Math.round(fox.client.ws.ping)}ms**`)
+		.setDescription(`:information_source: Pong! Latency: **${message.createdTimestamp - fox.createdTimestamp}ms** Gateway: **${Math.round(fox.client.ws.ping)}ms**`)
 
 		// Edits the original message
 		return await message.edit({embeds: [finishEmbed]})

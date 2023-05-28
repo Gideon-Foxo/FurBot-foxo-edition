@@ -28,7 +28,7 @@ module.exports = {
             modcommands.forEach(comm => desc += (`\`${stuff.prefix}${comm.name} ${(comm.usage) ? comm.usage : ""}\`\n${(comm.description) ? `${settings.space}${comm.description}\n`: ""}`))
             
             // Defines the embed that is then passed back
-            const embed = new Discord.MessageEmbed()
+            const embed = new Discord.EmbedBuilder()
             .setTitle(`${module} commands`)
             .setColor(settings.green)
             .setDescription(desc)
@@ -37,7 +37,7 @@ module.exports = {
 
 
         // Defines the starting help/home embed
-        const help = new Discord.MessageEmbed()
+        const help = new Discord.EmbedBuilder()
             .setThumbnail(client.user.avatarURL({ format: 'png', dynamic: true, size: 2048}))
             .setTitle("FurBot help")
             .setDescription(`FurBots prefix is \`${stuff.prefix}\`\n${settings.space}You can view my source code on [github](${config.github}).\n\n\`Information\`\n${settings.space}Shows all of the information commands\n\`Actions\`\n${settings.space}Shows all of the action commands`)

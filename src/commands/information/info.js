@@ -13,7 +13,7 @@ module.exports = {
 		// I am lazy
 		const client = stuff.client
 
-		const embed = new Discord.MessageEmbed()
+		const embed = new Discord.EmbedBuilder()
 		.setColor(settings.green)
 		.setAuthor({name: `${client.user.username} Info`, iconURL: client.user.avatarURL({ format: 'png', dynamic: true}), url: package.homepage})
 		.setDescription(`Hey there! These are my stats${(settings.slash) ? " c:" : `, to see all of my commands use \`${stuff.prefix}help\``}`)
