@@ -1,5 +1,6 @@
 const config = require("../../config/settings.js");
 const Discord = require('discord.js');
+const snip = require("../../scripts/snippets");
 
 module.exports = {
 
@@ -22,7 +23,7 @@ module.exports = {
 		// Defines the embed that the message is edited to
 		const finishEmbed = new Discord.EmbedBuilder()
 		.setColor(config.blue)
-		.setDescription(`:information_source: Pong! Latency: **${message.createdTimestamp - fox.createdTimestamp}ms** Gateway: **${Math.round(fox.client.ws.ping)}ms**`)
+		.setDescription(`:information_source: Pong! Latency: **${message.createdTimestamp - fox.createdTimestamp}ms** Gateway: **${Math.round(fox.client.ws.ping)}ms** Uptime: ${snip.get.uptime()}`)
 
 		// Edits the original message
 		return await message.edit({embeds: [finishEmbed]})
