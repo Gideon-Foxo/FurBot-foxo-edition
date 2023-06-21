@@ -69,14 +69,14 @@ const confirm = function (fox, content, emp = false, edit = true) {
 
         const embed = new Discord.EmbedBuilder()
         // @ts-ignore
-        .setColor(config.orange)
+        .setColor(config.yellow)
         .setDescription(content)
 
         message = await fox.reply({embeds: [embed], components: [{type: 1, components: row}], ephemeral: emp})
 
 
         // Creates the reaction listener for only the message author
-        const filter =  (interaction) => interaction.user.id === fox.user.id
+        const filter =  (interaction) => interaction.user.id === fox.user?.id || interaction.user.id === fox.author?.id
         const collector = await message.createMessageComponentCollector({ filter, idle: 60000 })
 
         // When a button is used :O
@@ -137,7 +137,7 @@ async function actionData (giver, receivers, action) {
     await database.table("users").insert(insertIds.map(id => ({ id, ...data }))).run()
 
     const giveUser = await database.table("users").get(giver).run()
-    if(!giveUser) await database.table("users").insert({id: giver, ...baseData})
+    if(!giveUser) await database.table("users").insert({id: giver, ...getBaseData()})
 
     await database.table("users").get(giver).update(row => ({ giving: { [action]: row('giving')(action).default(0).add(receivers.length) } })).run()
 } 
