@@ -29,7 +29,7 @@ module.exports = {
         else userId = fox.user.id
 
         // Define member, if member doesnt exist return 
-        const member = await fox.guild.members.fetch({ user: userId});
+        const member = await fox.guild.members.fetch({ user: userId}).catch(err => {})
         if (!member) {
 
             const embed = new Discord.EmbedBuilder()
