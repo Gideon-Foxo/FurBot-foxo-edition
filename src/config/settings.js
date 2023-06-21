@@ -2,6 +2,10 @@ const settings = {
 
     // Slash mode?
     slash: true,
+    // If you have a database, read the readme for more info
+    database: true,
+    // port to direct the database to
+    port: "//localhost:28015",
 
     // This is to set guild commands instead of global commands. This is a STRING for one guild ID and should only be used for development
     //guildID: "833171604812070933",
