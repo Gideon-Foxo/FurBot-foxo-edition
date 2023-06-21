@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const log = require('dbot-console-logger');
 const settings = require('./config/settings.js');
+const db = require('./database.js');
 
 
 // The function for messages!
@@ -36,6 +37,7 @@ async function messages(msg, client) {
     // If command is an action command (this is to gather the receivers)
     let receivers = null;
     const Ids = []
+
     if (command.module === "actions") {
         const array = []
 
@@ -63,6 +65,13 @@ async function messages(msg, client) {
         if (array.length === 2) receivers = `**${array.join("** and **")}**`
         if (array.length >= 3) receivers = `**${array.slice(0, -1).join('**, **') + '** and **' + array[array.length-1]}**`
     }
+}
+
+    // If user args and user
+    if (command.options?.[0]?.name === "user" && (args[0]?.match(/<@!?[0-9]+>/) || args[0]?.match(/^[0-9]+$/))) {
+        let userID = args[0].replace(/<@!?/, "").replace(/>/, "")
+        args = await client.users.fetch(userID) 
+    } else args = null
 
     // Defines the object stuff used for passing data over into the command.
     const stuff = {
@@ -77,7 +86,7 @@ async function messages(msg, client) {
 
         // This runs the command
 	try {
-		command.execute(msg, stuff);
+		command.execute(msg, stuff, db);
         // If any error  log it and return error message to user
 	} catch (err) {
 		log.error("Error in command handler (fox.js function messages at command execute)", err)
@@ -87,7 +96,6 @@ async function messages(msg, client) {
         .setDescription(`${settings.redTick} Something went wrong, Error: ${err.msg}`)
         return await msg.channel.send({embeds: [embed]})
 	}
-}
 }
 
 
@@ -134,7 +142,7 @@ async function slash(i, client) {
         slash: true,
     }
 
-    await command.execute(i, stuff);
+    await command.execute(i, stuff, db);
 }
 
 
