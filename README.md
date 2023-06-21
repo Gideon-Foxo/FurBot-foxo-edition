@@ -1,6 +1,6 @@
 <h1 align="center">FurBot Foxo edition</h1>
 
-FurBot foxo edition is a remake of [FurBot](https://github.com/PhunStyle/FurBot) one of the oldest and largest Discord furry bots that was shut down on 23-05-2022. This remake of FurBot is built using [Discord.js](https://discord.js.org/#/) v14 and supports many new features to Discord such as slash commands or buttons but can also be operated using old text based commands. As time goes on more commands will be ported over, view [FurBots roadmap](https://github.com/users/Gideon-Foxo/projects/1) for more information. (Click here)[https://github.com/Gideon-Foxo/FurBot-foxo-edition/tree/main/src/commands] to view what commands have been ported over.
+FurBot foxo edition is a remake of [FurBot](https://github.com/PhunStyle/FurBot) one of the oldest and largest Discord furry bots that was shut down on 23-05-2022. This remake of FurBot is built using [Discord.js](https://discord.js.org/#/) v14 and supports many new features to Discord such as slash commands or buttons but can also be operated using old text based commands. As time goes on more commands will be ported over, view [FurBots roadmap](https://github.com/users/Gideon-Foxo/projects/1) for more information. [Click here](https://github.com/Gideon-Foxo/FurBot-foxo-edition/tree/main/src/commands) to view what commands have been ported over.
 
 <h1 align="center">Furboi; a public instance</h1>
 
