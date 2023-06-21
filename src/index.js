@@ -123,7 +123,7 @@ client.on('messageCreate', async msg => {
 
 // The interaction event! 
 client.on('interactionCreate', async i => { 
-    if (settings.slash) return await fox.slash(i, client);
+    if (settings.slash && i.isCommand()) return await fox.slash(i, client);
     return;
 })
 
