@@ -9,41 +9,48 @@ const get = require("./get");
 const { db } = require('dbot-console-logger');
 
 
-// Base data for user database
-let baseData = {
 
-    giving: {
-        bark: 0,
-        bite: 0,
-        boop: 0,
-        feed: 0,
-        hug: 0,
-        kiss: 0,
-        lick: 0,
-        meow: 0,
-        nuzzle: 0,
-        pet: 0,
-        poke: 0,
-        shoot: 0,
-        slap: 0,
-        spank: 0,
-    }, 
-    receiving: {
-        bark: 0,
-        bite: 0,
-        boop: 0,
-        feed: 0,
-        hug: 0,
-        kiss: 0,
-        lick: 0,
-        meow: 0,
-        nuzzle: 0,
-        pet: 0,
-        poke: 0,
-        shoot: 0,
-        slap: 0,
-        spank: 0,
+// gets the base action data
+function getBaseData () {
+
+    // Base data for user database
+    let baseData = {
+
+        giving: {
+            bark: 0,
+            bite: 0,
+            boop: 0,
+            feed: 0,
+            hug: 0,
+            kiss: 0,
+            lick: 0,
+            meow: 0,
+            nuzzle: 0,
+            pet: 0,
+            poke: 0,
+            shoot: 0,
+            slap: 0,
+            spank: 0,
+        }, 
+        receiving: {
+            bark: 0,
+            bite: 0,
+            boop: 0,
+            feed: 0,
+            hug: 0,
+            kiss: 0,
+            lick: 0,
+            meow: 0,
+            nuzzle: 0,
+            pet: 0,
+            poke: 0,
+            shoot: 0,
+            slap: 0,
+            spank: 0,
+        }
     }
+
+    return structuredClone(baseData)
 }
 
 
@@ -118,7 +125,7 @@ const confirm = function (fox, content, emp = false, edit = true) {
 
 async function actionData (giver, receivers, action) {
 
-    let data = structuredClone(baseData)
+    let data = getBaseData()
     data.receiving[action] = 1
 
 
@@ -147,5 +154,6 @@ async function actionData (giver, receivers, action) {
 module.exports = {
     get,
     confirm,
-    actionData
+    actionData,
+    getBaseData
 }
