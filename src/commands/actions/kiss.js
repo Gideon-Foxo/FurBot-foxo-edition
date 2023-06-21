@@ -43,6 +43,9 @@ module.exports = {
     const selfR = `**${fox.member.displayName}** walks up to a mirror and kisses themselves! How odd..`
     const rr = `**${fox.member.displayName}** ` + kisses[Math.floor(Math.random() * kisses.length)]
 
+    // Add the user action data into the database if it is enabled
+    if (settings.database && stuff.rIds.length) snip.actionData((stuff.prefix) ? fox.author.id : fox.user.id, stuff.rIds, this.name)
+
     if (stuff.text) {
       if (stuff.r?.length) return await fox.channel.send(rr)
       else return await fox.channel.send(selfR)

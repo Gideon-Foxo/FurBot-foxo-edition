@@ -3,7 +3,7 @@ const settings = require("../../config/settings.js");
 module.exports = {
 
 	name: 'shoot',
-	description: 'Aim and fire, point a gun at one or multiple users!"',
+	description: 'Aim and fire, point a gun at one or multiple users!',
   usage: "shoot [@User/ID] [@User/ID]...",
   // This is the description for the user option
   slashDescrip: "A user to shoot", 
@@ -40,6 +40,9 @@ module.exports = {
 
     const selfR = `**${fox.member.displayName}** shoots themselves! :dizzy_face:${settings.shoot} R.I.P. Press [F] to pay respects.`
     const rr = `**${fox.member.displayName}** ` + shoots[Math.floor(Math.random() * shoots.length)]
+
+    // Add the user action data into the database if it is enabled
+    if (settings.database && stuff.rIds.length) snip.actionData((stuff.prefix) ? fox.author.id : fox.user.id, stuff.rIds, this.name)
 
     if (stuff.text) {
       if (stuff.r?.length) return await fox.channel.send(rr)

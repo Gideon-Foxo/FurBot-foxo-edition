@@ -1,4 +1,5 @@
 const settings = require("../../config/settings.js");
+const snip = require("../../scripts/snippets");
 
 module.exports = {
 
@@ -55,6 +56,9 @@ module.exports = {
 
     const selfR = `**${fox.member.displayName}** ` + selfbarks[Math.floor(Math.random() * selfbarks.length)]
     const rr = `**${fox.member.displayName}** ` + barks[Math.floor(Math.random() * barks.length)]
+
+    // Add the user action data into the database if it is enabled
+    if (settings.database && stuff.rIds.length) snip.actionData((stuff.prefix) ? fox.author.id : fox.user.id, stuff.rIds, this.name)
 
     if (stuff.text) {
       if (stuff.r?.length) return await fox.channel.send(rr)

@@ -34,6 +34,9 @@ module.exports = {
 
     const selfR = `**${fox.member.displayName}** spanks their own butt! \ud83d\udc4b\ud83c\udf51`
     const rr = `**${fox.member.displayName}** ` + spanks[Math.floor(Math.random() * spanks.length)]
+    
+    // Add the user action data into the database if it is enabled
+    if (settings.database && stuff.rIds.length) snip.actionData((stuff.prefix) ? fox.author.id : fox.user.id, stuff.rIds, this.name)
 
     if (stuff.text) {
       if (stuff.r?.length) return await fox.channel.send(rr)
