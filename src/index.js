@@ -15,6 +15,10 @@ const fox = require('./fox.js');
 const settings = require('./config/settings.js');
 const token = require('./config/tokens.json');
 const package = require('../package.json');
+const database = require('./database.js');
+
+// If there is a database go start it, read the readme for more info
+if (settings.database) database()
 
 
 // If slash commands is off add the message intent to see messages
@@ -29,25 +33,28 @@ const client = new Discord.Client({
 client.commands = new Discord.Collection();
 
 
+// Define client uptime 
+client.startTime = Date.now()
 
-// Command loading! 
-// Add all new folders here 
-client.cmdmodules = fs.readdirSync(path.join(__dirname, './commands/'))
-
-// Loops thought the folders under 'commands' and loads the command files as long as they are js files
-for (const folder of client.cmdmodules) {  
-    let filesInFolder = fs.readdirSync(path.join(__dirname, './commands/', folder)).filter(file => file.endsWith('.js'))
-    for (const file of filesInFolder) {
-        const commandexport = require(`./commands/${folder}/${file}`)
-        commandexport.module = folder
-        client.commands.set(commandexport.name, commandexport)
-        //log.debug(`Loaded command ${log.c.bold(commandexport.name)}`)
-    }
-}
 
 
 // This triggers when the bot is "ready"
 client.on('ready', async (client) => {
+
+    // Command loading! 
+    // Add all new folders here 
+    client.cmdmodules = fs.readdirSync(path.join(__dirname, './commands/'))
+
+    // Loops thought the folders under 'commands' and loads the command files as long as they are js files
+    for (const folder of client.cmdmodules) {  
+        let filesInFolder = fs.readdirSync(path.join(__dirname, './commands/', folder)).filter(file => file.endsWith('.js'))
+        for (const file of filesInFolder) {
+            const commandexport = require(`./commands/${folder}/${file}`)
+            commandexport.module = folder
+            client.commands.set(commandexport.name, commandexport)
+            //log.debug(`Loaded command ${log.c.bold(commandexport.name)}`)
+        }
+    }
 
     // Sets the string for what mode the bot is running on to be console logged
     let mode = "Running in slash mode."
@@ -124,3 +131,6 @@ client.on('interactionCreate', async i => {
 
 // This is how we log into Discord
 client.login(token.token)
+
+// Allows the client to be accessed as a module (used a lot in the snip file)
+module.exports = client
