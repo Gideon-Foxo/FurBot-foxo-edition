@@ -35,6 +35,7 @@ async function messages(msg, client) {
 
     // If command is an action command (this is to gather the receivers)
     let receivers = null;
+    const Ids = []
     if (command.module === "actions") {
         const array = []
 
@@ -52,7 +53,9 @@ async function messages(msg, client) {
             // If the array has 25 items in it stop (25 is the say amount of users you can do with slash command for consistency)
             else if (array.length === 25) break;
             // Push the members displayname the to the array!
-            else array.push(member.displayName)
+            else {
+                array.push(member.displayName)
+                Ids.push(member.id)
             }
         }
         // If there are names in the arrays format it
@@ -65,6 +68,7 @@ async function messages(msg, client) {
     const stuff = {
         client: client,
         r: receivers,
+        rIds: Ids,
         prefix: settings.prefix,
         text: true,
         args: args,
@@ -84,6 +88,7 @@ async function messages(msg, client) {
         return await msg.channel.send({embeds: [embed]})
 	}
 }
+}
 
 
 // Slash commands!
@@ -93,6 +98,7 @@ async function slash(i, client) {
     let command = client.commands.get(i.commandName)
 
     let receivers = null;
+    const Ids = []
 
     // If the command is an action command gather receivers
     if (command.module === "actions") {
@@ -100,13 +106,17 @@ async function slash(i, client) {
         const array = []
 
         // Trigger the func function
+        // Why did I do it like this, do I really hate loops that much 😬
         i.options.data.forEach(func)
 
         // Added the displayname to the array of users, skis over the author
         function func(item) {
             const member = item.member
             if (member.id === i.user.id) {}
-            else array.push(member.displayName)
+            else {
+                array.push(member.displayName)
+                Ids.push(member.id)
+            }
         }
 
         // If there are names in the arrays format it
@@ -120,6 +130,7 @@ async function slash(i, client) {
     let stuff = {
         client: client,
         r: receivers,
+        rIds: Ids,
         slash: true,
     }
 
