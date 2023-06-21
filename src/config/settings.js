@@ -34,6 +34,8 @@ const settings = {
     green: "#247667",
     e6: "012e57",
     cyan: "31ccff",
+    // Color of Discords embed
+    embed: "2c2d31",
 
 
     // Emotes! 
