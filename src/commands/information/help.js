@@ -44,22 +44,26 @@ module.exports = {
             .setColor(settings.green)
 
 
-            // Defines the select menu
-            const menu = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageSelectMenu()
-            .setCustomId('menu')
-            .setOptions([{ label: 'Information', value: 'information' }, { label: 'Actions', value: 'actions' },,]))
+
+            // Defines the setting menu
+            let menu =  {
+                type: 3,
+                customId: "menu",
+                placeholder: "Select a category",
+                options: [{ label: 'Information', value: 'information' }, { label: 'Actions', value: 'actions' }, { label: 'Useful', value: 'useful' }]
+            }
+
 
 
             // Defines the buttons
-            const buttons = new Discord.MessageActionRow().addComponents([
-                { label: 'Home', style: 'SECONDARY', type: 2, customId: 'home' },
-                { label: 'Close', style: 'DANGER', type: 2, customId: 'close' }
-            ])
+            const buttons = [
+                { label: 'Home', style: Discord.ButtonStyle.Secondary, type: 2, customId: 'home' },
+                { label: 'Close', style: Discord.ButtonStyle.Danger, type: 2, customId: 'close' }
+            ]
 
 
             // Send the embed and components
-            const message = await fox.reply({ embeds: [help], components: [menu, buttons]})
+            const message = await fox.reply({ embeds: [help], components: [{type: 1, components: [menu]}, {type: 1, components: buttons}]})
 
 
             // Create the collection for the help command
