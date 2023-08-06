@@ -3,7 +3,7 @@
     "@discordjs/rest": "^0.5.0",
     "dbot-console-logger": "^1.0.2",
     "discord-api-types": "^0.35.0",
-    "discord.js": "^14.11.0",
+    "discord.js": "^14.12.1",
     "pm2": "^5.2.0",
     "randomcolor": "^0.6.2",
     "rethinkdbdash": "^2.3.31"
