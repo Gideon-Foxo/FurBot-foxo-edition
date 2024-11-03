@@ -1,6 +1,10 @@
 const log = require('dbot-console-logger');
 const settings = require('./config/settings.js');
 
+const url = process.env.RETHINKDB_URL || settings.databaseUrl
+if (!url || !url.match(/^\/\/.+:[0-9]{1,5}$/)) {
+    log.warn("Invalid database url found (format: `//host:port`)")
+}
 
 // Start the database and make sure its setup ready to go
 const database = require('rethinkdbdash')({ 
@@ -9,8 +13,8 @@ const database = require('rethinkdbdash')({
     // Defines the default database to look at
     db: "FurBot",
     // Where to find rethinkdb
-    host: settings.port.split('//')[1]?.split(':')[0],
-    port: Number(settings.port.split(':')[1]),
+    host: url.split('//')[1]?.split(':')[0],
+    port: Number(url.split(':')[1]),
 });
 
 
