@@ -13,9 +13,12 @@ const { Routes } = require('discord-api-types/v9');
 //const sharding = require('./sharding.js');
 const fox = require('./fox.js');
 const settings = require('./config/settings.js');
-const token = require('./config/tokens.json');
+const tokens = require('./config/tokens.json');
 const package = require('../package.json');
 const database = require('./database.js');
+
+// Support loading token from env if available
+const token = process.env.TOKEN || tokens.token
 
 // If there is a database go start it, read the readme for more info
 if (settings.database) database()
@@ -93,7 +96,7 @@ client.on('ready', async (client) => {
 
         try {
             // Defines the where to send the commands to
-            const rest = new REST({ version: '9' }).setToken(token.token);
+            const rest = new REST({ version: '9' }).setToken(token);
 
             // If guildID
             if (settings.guildID) await rest.put(
@@ -130,7 +133,7 @@ client.on('interactionCreate', async i => {
 
 
 // This is how we log into Discord
-client.login(token.token)
+client.login(token)
 
 // Allows the client to be accessed as a module (used a lot in the snip file)
 module.exports = client
