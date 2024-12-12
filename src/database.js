@@ -1,6 +1,8 @@
 const log = require('dbot-console-logger');
 const settings = require('./config/settings.js');
 
+if (!settings.database) return
+
 
 // Start the database and make sure its setup ready to go
 const database = require('rethinkdbdash')({ 
