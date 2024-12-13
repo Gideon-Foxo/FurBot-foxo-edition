@@ -119,7 +119,9 @@ async function slash(i, client) {
 
         // Added the displayname to the array of users, skis over the author
         function func(item) {
-            const member = item.member
+            let member = item.member
+            // If the member does not exist (run in dms or whatever) use the user display name instead
+            if (!member) member = item.user
             if (member.id === i.user.id) {}
             else {
                 array.push(member.displayName)
