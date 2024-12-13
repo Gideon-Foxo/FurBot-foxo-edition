@@ -8,6 +8,10 @@ module.exports = {
   usage: "shoot [@User/ID] [@User/ID]...",
   // This is the description for the user option
   slashDescrip: "A user to shoot", 
+  // 0 = Install as a guild command, 1 = Install as a user command
+  integration_types: [0, 1],
+  // 0 = Allow command to be run in guilds, 1 = Allow commands to be used in bot dms, 2 = Allow commands to be used in Private Messages
+  contexts: [0, 1, 2],
 	async execute(fox, stuff) {
 
     // Defines the people to receiver the commands action (if any is given)
@@ -39,8 +43,11 @@ module.exports = {
         `just shot ${receivers} THROUGH THE HEART AND YOU'RE TO BLAME. DARLIN' YOU GIVE LOOOOVE A BAD NAME! ${settings.shoot}`
     ];
 
-    const selfR = `**${fox.member.displayName}** shoots themselves! :dizzy_face:${settings.shoot} R.I.P. Press [F] to pay respects.`
-    const rr = `**${fox.member.displayName}** ` + shoots[Math.floor(Math.random() * shoots.length)]
+    let displayName = fox?.member?.displayName
+    if (!displayName) displayName = fox.user.displayName
+
+    const selfR = `**${displayName}** shoots themselves! :dizzy_face:${settings.shoot} R.I.P. Press [F] to pay respects.`
+    const rr = `**${displayName}** ` + shoots[Math.floor(Math.random() * shoots.length)]
 
     // Add the user action data into the database if it is enabled
     if (settings.database && stuff.rIds.length) snip.actionData((stuff.prefix) ? fox.author.id : fox.user.id, stuff.rIds, this.name)

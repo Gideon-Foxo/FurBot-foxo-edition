@@ -8,6 +8,10 @@ module.exports = {
   usage: "meow [@User/ID] [@User/ID]...",
   // This is the description for the user option
   slashDescrip: "A user to meow at",  
+  // 0 = Install as a guild command, 1 = Install as a user command
+  integration_types: [0, 1],
+  // 0 = Allow command to be run in guilds, 1 = Allow commands to be used in bot dms, 2 = Allow commands to be used in Private Messages
+  contexts: [0, 1, 2],  
 	async execute(fox, stuff) {
 
     // Defines the people to receiver the commands action (if any is given)
@@ -55,8 +59,11 @@ module.exports = {
         `lets out an adorable meow at ${receivers}!`
       ];
 
-    const selfR = `**${fox.member.displayName}** ` + selfmeows[Math.floor(Math.random() * selfmeows.length)]
-    const rr = `**${fox.member.displayName}** ` + meows[Math.floor(Math.random() * meows.length)]
+    let displayName = fox?.member?.displayName
+    if (!displayName) displayName = fox.user.displayName
+
+    const selfR = `**${displayName}** ` + selfmeows[Math.floor(Math.random() * selfmeows.length)]
+    const rr = `**${displayName}** ` + meows[Math.floor(Math.random() * meows.length)]
 
     // Add the user action data into the database if it is enabled
     if (settings.database && stuff.rIds.length) snip.actionData((stuff.prefix) ? fox.author.id : fox.user.id, stuff.rIds, this.name)

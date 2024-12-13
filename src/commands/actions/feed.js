@@ -8,6 +8,10 @@ module.exports = {
   usage: "feed [@User/ID] [@User/ID]...",
   // This is the description for the user option
   slashDescrip: "A user to give food too",    
+  // 0 = Install as a guild command, 1 = Install as a user command
+  integration_types: [0, 1],
+  // 0 = Allow command to be run in guilds, 1 = Allow commands to be used in bot dms, 2 = Allow commands to be used in Private Messages
+  contexts: [0, 1, 2],  
 	async execute(fox, stuff) {
 
     // Defines the people to receiver the commands action (if any is given)
@@ -68,8 +72,11 @@ module.exports = {
       `doesn't stop barking at ${receivers}!`
     ];
 
-    const selfR = `**${fox.member.displayName}** eats all the food themselves... How greedy!! :angry:`
-    const rr = `**${fox.member.displayName}** ` + foods[Math.floor(Math.random() * foods.length)]
+    let displayName = fox?.member?.displayName
+    if (!displayName) displayName = fox.user.displayName
+
+    const selfR = `**${displayName}** eats all the food themselves... How greedy!! :angry:`
+    const rr = `**${displayName}** ` + foods[Math.floor(Math.random() * foods.length)]
 
     // Add the user action data into the database if it is enabled
     if (settings.database && stuff.rIds.length) snip.actionData((stuff.prefix) ? fox.author.id : fox.user.id, stuff.rIds, this.name)

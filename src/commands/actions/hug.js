@@ -7,7 +7,11 @@ module.exports = {
 	description: 'Give one or multiple users a warm hug',
   usage: "hug [@User/ID] [@User/ID]...",
   // This is the description for the user option
-  slashDescrip: "A user to hug",    
+  slashDescrip: "A user to hug",   
+  // 0 = Install as a guild command, 1 = Install as a user command
+  integration_types: [0, 1],
+  // 0 = Allow command to be run in guilds, 1 = Allow commands to be used in bot dms, 2 = Allow commands to be used in Private Messages
+  contexts: [0, 1, 2],   
 	async execute(fox, stuff) {
 
     // Defines the people to receiver the commands action (if any is given)
@@ -40,10 +44,12 @@ module.exports = {
         `gives ${receivers} a long, warm hug! Super cozy!`,
         `shares a nice comforting hug with ${receivers}!`
       ];
-   
 
-    const selfR = `**${fox.member.displayName}** hugs themselves! ${settings.hug}`
-    const rr = `**${fox.member.displayName}** ` + hugs[Math.floor(Math.random() * hugs.length)]
+    let displayName = fox?.member?.displayName
+    if (!displayName) displayName = fox.user.displayName
+
+    const selfR = `**${displayName}** hugs themselves! ${settings.hug}`
+    const rr = `**${displayName}** ` + hugs[Math.floor(Math.random() * hugs.length)]
 
     // Add the user action data into the database if it is enabled
     if (settings.database && stuff.rIds.length) snip.actionData((stuff.prefix) ? fox.author.id : fox.user.id, stuff.rIds, this.name)

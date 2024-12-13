@@ -9,6 +9,10 @@ module.exports = {
 	name: 'stats',
 	description: 'Lets you see your action stats or another users if provided',
     options: [{type: 6, name: "user", description: "Select a user to view their stats"}],
+    // 0 = Install as a guild command, 1 = Install as a user command
+    integration_types: [0, 1],
+    // 0 = Allow command to be run in guilds, 1 = Allow commands to be used in bot dms, 2 = Allow commands to be used in Private Messages
+    contexts: [0, 1, 2],
 	async execute(fox, stuff, db) {
 
 
@@ -28,15 +32,23 @@ module.exports = {
         else if (stuff.text) userId = fox.author.id
         else userId = fox.user.id
 
-        // Define member, if member doesnt exist return 
-        const member = await fox.guild.members.fetch({ user: userId}).catch(err => {})
-        if (!member) {
+        let member = null
 
-            const embed = new Discord.EmbedBuilder()
-            .setColor(config.red)
-            .setDescription("This user is not in the server so I can not see their stats :(")
-            return await fox.reply({embeds: [embed]})
+
+        // If the user is not trying to look themselves up
+        if (userId !== fox.user.id) {
+
+            // Define member, if member doesnt exist return 
+            member = await fox?.guild?.members?.fetch({ user: userId}).catch(err => {})
+            if (!member) {
+
+                const embed = new Discord.EmbedBuilder()
+                .setColor(config.red)
+                .setDescription("This user is not in the server so I can not see their stats :(")
+                return await fox.reply({embeds: [embed]})
+            }
         }
+
 
         // Fetch user
         let user = await db.table("users").get(userId).run()
@@ -57,7 +69,7 @@ module.exports = {
         // Define and return the message
         const embed = new Discord.EmbedBuilder()
         .setColor(randomColor())
-        .setAuthor({ name: `${member.displayName} Action Stats!`, iconURL: member?.displayAvatarURL({ format: 'png', dynamic: true, size: 2048 })})
+        .setAuthor({ name: `${(member?.displayName) ? member?.displayName : fox.user.displayName} Action Stats!`, iconURL: (member?.displayAvatarURL({ format: 'png', dynamic: true, size: 2048 })) ? member?.displayAvatarURL({ format: 'png', dynamic: true, size: 2048 }) : fox.user?.displayAvatarURL({ format: 'png', dynamic: true, size: 2048 })})
         .setDescription(`**Actions Given**:\n${getActionData("giving")}\n\n**Actions Received**:\n${getActionData("receiving")}`)
         return await fox.reply({embeds: [embed]})
 
